@@ -10,6 +10,7 @@ import Me.Teenaapje.Referral.Database.Database;
 import Me.Teenaapje.Referral.PlaceHolders.PlaceHolders;
 import Me.Teenaapje.Referral.Utils.ConfigManager;
 import Me.Teenaapje.Referral.Utils.Utils;
+import Me.clip.placeholderapi.PlaceholderAPI;
 
 public class ReferralCore extends JavaPlugin{
 	public static ReferralCore core;
@@ -58,16 +59,25 @@ public class ReferralCore extends JavaPlugin{
 	}
 	
 	public void UseCommands(List<?> commands, Player player) {
-		for (int i = 0; i < commands.size(); i++) {
-			String command = (String) commands.get(i);
-									
-			getServer().getScheduler().runTask(this, new Runnable() {
-				@Override
-				public void run() {
-					getServer().dispatchCommand(getServer().getConsoleSender(), command.replace("<player>", player.getName()));
-				}
-		    });
-		}
-	}
+    for (int i = 0; i < commands.size(); i++) {
+        String command = (String) commands.get(i);
+
+        getServer().getScheduler().runTask(this, new Runnable() {
+            @Override
+            public void run() {
+                String parsedCommand = command.replace("<player>", player.getName());
+
+                if (ConfigManager.placeholderAPIEnabled) {
+                    parsedCommand = PlaceholderAPI.setPlaceholders(player, parsedCommand);
+                }
+
+                getServer().dispatchCommand(
+                    getServer().getConsoleSender(),
+                    parsedCommand
+                );
+            }
+        });
+    }
+}
 	
 }
