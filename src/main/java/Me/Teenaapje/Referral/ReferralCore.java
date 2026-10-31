@@ -10,7 +10,7 @@ import Me.Teenaapje.Referral.Database.Database;
 import Me.Teenaapje.Referral.PlaceHolders.PlaceHolders;
 import Me.Teenaapje.Referral.Utils.ConfigManager;
 import Me.Teenaapje.Referral.Utils.Utils;
-import Me.clip.placeholderapi.PlaceholderAPI;
+import me.clip.placeholderapi.PlaceholderAPI;
 
 public class ReferralCore extends JavaPlugin{
 	public static ReferralCore core;
